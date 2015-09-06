@@ -1,17 +1,23 @@
 var express = require('express');
-var service = require('./../service/db');
+var dbService = require('./../service/db');
 
 var router = express.Router();
 
-/* GET home page. */
+/* GET login page. */
 router.get('/', function(req, res, next) {
-  	res.render('login');
+  	res.render('login',{loginFail:false});
 });
 
+/** POST login information to check if such an user exists. */
 router.post('/', function(req, res, next) {
 	var username = req.body.username;
 	var password = req.body.password;
-  	
+	dbService.authenticate(username, password, res);
+});
+
+/* GET login page. */
+router.get('/failed', function(req, res, next) {
+  	res.render('login',{loginFail:true});
 });
 
 module.exports = router;

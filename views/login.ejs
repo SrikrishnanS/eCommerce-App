@@ -2,6 +2,13 @@
 	<head>
 	</head>
 	<body>
+		<%if (loginFail) { %>
+			<div class="alert alert-danger" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			  	<span class="sr-only">Error:</span>
+			  		Invalid username or password!
+			</div>
+		<% } %>
 		<form method="POST">
 	  		<div class="form-group">
 	    		<label for="username">Username</label>
