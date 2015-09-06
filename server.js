@@ -4,10 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var routes = require('./controller/index');
 var health = require('./controller/health');
 var login = require('./controller/login');
+var home = require('./controller/home');
 
 var serverConfig = require('./config/server');
 
@@ -23,10 +25,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
+app.use(session({secret: 'secret',resave: false,saveUninitialized: false}));
 
 app.use('/', routes);
 app.use('/health', health);
 app.use('/login', login);
+app.use('/home', home);
+
 /*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

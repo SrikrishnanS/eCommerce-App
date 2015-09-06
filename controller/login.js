@@ -1,5 +1,5 @@
 var express = require('express');
-var dbService = require('./../service/db');
+var authService = require('./../service/auth');
 
 var router = express.Router();
 
@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	var username = req.body.username;
 	var password = req.body.password;
-	dbService.authenticate(username, password, res);
+	authService.authenticate(username, password, req, res);
 });
 
 /* GET login page. */

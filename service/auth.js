@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
 });
 
 module.exports = {
-	authenticate : function(username, password, res) {
+	authenticate : function(username, password, req, res) {
 			connection.query('SELECT U.ID, U.FULL_NAME, U.USERNAME, U.PASSWORD, R.DESCRIPTION FROM COMM_USERS U, COMM_ROLES R, COMM_USER_ROLES UR WHERE U.ID = UR.USER_ID AND R.ID=UR.ROLE_ID  AND U.USERNAME = ? AND U.PASSWORD = ?',[username,password], function(err, rows, fields) {
 			
 			if (err) throw err;
@@ -17,9 +17,11 @@ module.exports = {
 				res.redirect('/login/failed');
 			else if (rows.length == 1) {
 				user = rows[0];
-				res.render('home',user);
+				req.session.user = user;
+				//console.log(req.session.user);
+				//res.render('home',user);
+				res.redirect('/home/');
 			}
 		});
-		
 	}
 };
