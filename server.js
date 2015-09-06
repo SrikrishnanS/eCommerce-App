@@ -9,8 +9,10 @@ var routes = require('./controller/index');
 var health = require('./controller/health');
 var login = require('./controller/login');
 
+var serverConfig = require('./config/server');
+
 var app = express();
-var port = 8000;
+var port = serverConfig.port;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
