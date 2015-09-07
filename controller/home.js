@@ -6,7 +6,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	if(authService.isAuthenticated(req))
-  		res.render('home');
+  		res.render('home', {'user' : req.session.user});
   	else
   		res.redirect('/login/');
 });

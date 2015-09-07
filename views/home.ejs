@@ -1,8 +1,10 @@
 <html>
 <head>
-<link rel="stylesheet" href="/css/style.css"/>
+	<link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
-	<h1>Hello, Home!</h1>
+	<h3>Welcome <%= user.FULL_NAME %>!</h3>
+	<p>Logged in as <%= user.DESCRIPTION %></p>
+	<p class="text-right"><a href="/logout">Logout</a></p>
 </body>
 </html>

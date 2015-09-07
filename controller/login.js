@@ -18,7 +18,7 @@ router.post('/', function(req, res, next) {
 	authService.authenticate(username, password, req, res);
 });
 
-/* GET login page. */
+/* GET login page in case of incorrect username and password. */
 router.get('/failed', function(req, res, next) {
 	if(authService.isAuthenticated(req))
 		res.redirect('/home/');
