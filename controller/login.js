@@ -5,7 +5,10 @@ var router = express.Router();
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
-  	res.render('login',{loginFail:false});
+	if(authService.isAuthenticated(req))
+		res.redirect('/home/');
+	else	
+  		res.render('login',{loginFail:false});
 });
 
 /** POST login information to check if such an user exists. */
@@ -17,7 +20,10 @@ router.post('/', function(req, res, next) {
 
 /* GET login page. */
 router.get('/failed', function(req, res, next) {
-  	res.render('login',{loginFail:true});
+	if(authService.isAuthenticated(req))
+		res.redirect('/home/');
+	else
+  		res.render('login',{loginFail:true});
 });
 
 module.exports = router;

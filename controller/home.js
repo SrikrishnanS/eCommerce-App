@@ -1,11 +1,14 @@
 var express = require('express');
+var authService = require('./../service/auth');
 
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	console.log(req.session.user);
-  	res.render('home');
+	if(authService.isAuthenticated(req))
+  		res.render('home');
+  	else
+  		res.redirect('/login/');
 });
 
 module.exports = router;
