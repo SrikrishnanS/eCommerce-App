@@ -1,5 +1,6 @@
 var express = require('express');
 var authService = require('./../service/auth');
+var ansUtil = require('./../util/ans');
 
 var router = express.Router();
 
@@ -12,8 +13,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	console.log('receiving the pimg');
-	res.render('home', {'user' : req.session.user});
+	var answer1 = req.body.question1;
+	var answer2 = req.body.question2;
+	var answer3 = req.body.question3;
+	var feedback = ansUtil.validate(answer1, answer2, answer3);
+	res.render('home', {'user' : req.session.user, 'feedback' : feedback});
 });
 
 module.exports = router;
