@@ -1,5 +1,6 @@
 var express = require('express');
 var authService = require('./../service/auth');
+var ansService = require('./../service/ans');
 var ansUtil = require('./../util/ans');
 
 var router = express.Router();
@@ -17,6 +18,7 @@ router.post('/', function(req, res, next) {
 	var answer2 = req.body.question2;
 	var answer3 = req.body.question3;
 	var feedback = ansUtil.validate(answer1, answer2, answer3);
+	ansService.recordResponses(req.session.user,feedback);
 	res.render('home', {'user' : req.session.user, 'feedback' : feedback});
 });
 
