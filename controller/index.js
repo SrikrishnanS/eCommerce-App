@@ -7,13 +7,13 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	if(authService.isAuthenticated(req))
 		res.redirect('/home/');
-	else	
-  		res.render('login',{loginFail:false});
+	else
+  		res.redirect('/login/');
 });
 
 router.get('/logout', function(req, res, next) {
 	authService.logout(req);
-  	res.render('login',{loginFail:false});
+  	res.redirect('/login/');
 });
 
 module.exports = router;
