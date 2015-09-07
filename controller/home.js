@@ -11,4 +11,9 @@ router.get('/', function(req, res, next) {
   		res.redirect('/login/');
 });
 
+router.post('/', function(req, res, next) {
+	console.log('receiving the pimg');
+	res.render('home', {'user' : req.session.user});
+});
+
 module.exports = router;
