@@ -32,13 +32,15 @@ app.use('/health', health);
 app.use('/login', login);
 app.use('/home', home);
 
-/*
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
+/*
 
 // error handlers
 
@@ -52,7 +54,7 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
-}
+}*/
 
 // production error handler
 // no stacktraces leaked to user
@@ -62,7 +64,7 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
-});*/
+});
 
 app.listen(port);
 console.log("Listening at port " + port);

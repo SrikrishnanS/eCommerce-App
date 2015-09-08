@@ -12,111 +12,134 @@
 		<![endif]-->
 </head>
 <body>
-	<h3>Welcome <%= user.FULL_NAME %>!</h3>
-	<p class="text-right">Logged in as <%= user.DESCRIPTION %></p>
-	
-	<% if(user.DESCRIPTION === 'Customer') { %>
-   		Answer the following questions:
-   		<form id="answer-form" method="POST" action="/home/">
-   			<!-- Question 1 -->
-   			<div>
-   				<p>1. What is 2 + 2?</p>
-	   			<label class="radio-inline">
-	  				<input type="radio" name="question1" id="question11" value="2"> 2
-				</label>
-				<label class="radio-inline">
-	  				<input type="radio" name="question1" id="question12" value="4"> 4
-				</label>
-				<label class="radio-inline">
-	  				<input type="radio" name="question1" id="question13" value="6"> 6
-				</label>
-				<!--Error div -->
-				<div id="question1-error" class="alert alert-danger" role="alert">
-					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			  		<span class="sr-only">Error:</span>
-			  			Choose an answer option
+	<div class="container">
+		<h1 class="text-center">Project - 1</h1>
+		<p class="text-right"><a class="btn btn-default" href="/logout">Logout</a></p>
+		<blockquote>
+			<h3>Welcome <strong><%= user.FULL_NAME %>!</strong></h3>
+			<footer>Logged in as <strong> <%= user.DESCRIPTION %></strong></footer>
+		</blockquote>
+		<% if(user.DESCRIPTION === 'Customer') { %>
+	   		<p class="lead">Answer the following questions:</p>
+	   		<form id="answer-form" method="POST" action="/home/">
+	   			<!-- Question 1 -->
+	   			<div class="panel panel-default">
+  					<div class="panel-body">
+		   				<p><strong>1. What is 2 + 2 ?</strong></p>
+			   			<label class="radio-inline">
+			  				<input type="radio" name="question1" id="question11" value="2"> 2
+						</label>
+						<label class="radio-inline">
+			  				<input type="radio" name="question1" id="question12" value="4"> 4
+						</label>
+						<label class="radio-inline">
+			  				<input type="radio" name="question1" id="question13" value="6"> 6
+						</label>
+						<!--Error div -->
+						<div id="question1-error" class="alert alert-danger" role="alert" style="display:none;">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					  		<span class="sr-only">Error:</span>
+					  			Choose an answer option
+						</div>
+					<!--Feedback div -->
+					<p class="text-info"><%= typeof feedback !='undefined' ? feedback.answer1.response : '' %>
+					</p>
+					</div>
 				</div>
-				<!--Feedback div -->
-				<p class="text-danger"><%= typeof feedback !='undefined' ? feedback.answer1.response : '' %></p>
-			</div>
-			<!-- Question 2 -->
-			<div>
-				<p>2. What is 3 &times; 4?</p>
-	   			<label class="radio-inline">
-					<input type="radio" name="question2" id="inlineRadio21" value="12"> 12
-				</label>
-				<label class="radio-inline">
-	  				<input type="radio" name="question2" id="inlineRadio22" value="24"> 24
-				</label>
-				<label class="radio-inline">
-	  				<input type="radio" name="question2" id="inlineRadio23" value="36"> 36
-				</label>
-				<!--Error div -->
-				<div id="question2-error" class="alert alert-danger" role="alert">
-					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			  		<span class="sr-only">Error:</span>
-			  			Choose an answer option
+				<!-- Question 2 -->
+				<div class="panel panel-default">
+  					<div class="panel-body">
+					<p><strong>2. What is 3 &times; 4 ?</strong></p>
+		   			<label class="radio-inline">
+						<input type="radio" name="question2" id="inlineRadio21" value="12"> 12
+					</label>
+					<label class="radio-inline">
+		  				<input type="radio" name="question2" id="inlineRadio22" value="24"> 24
+					</label>
+					<label class="radio-inline">
+		  				<input type="radio" name="question2" id="inlineRadio23" value="36"> 36
+					</label>
+					<!--Error div -->
+					<div id="question2-error" class="alert alert-danger" role="alert" style="display:none;">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  		<span class="sr-only">Error:</span>
+				  			Choose an answer option
+					</div>
+					<!--Feedback div -->
+					<p class="text-info"><%= typeof feedback !='undefined' ? feedback.answer2.response : '' %></p>
+					</div>
 				</div>
-				<!--Feedback div -->
-				<p class="text-danger"><%= typeof feedback !='undefined' ? feedback.answer2.response : '' %></p>
-			</div>
-			<!-- Question 3 -->
-			<div>
-				<p>3. What is 2 &divide; 2?</p>
-	   			<label class="radio-inline">
-	  				<input type="radio" name="question3" id="inlineRadio31" value="1"> 1
-				</label>
-				<label class="radio-inline">
-	  				<input type="radio" name="question3" id="inlineRadio32" value="2"> 2
-				</label>
-				<label class="radio-inline">
-	  				<input type="radio" name="question3" id="inlineRadio33" value="3"> 3
-				</label>
-				<!--Error div -->
-				<div id="question3-error" class="alert alert-danger" role="alert">
-					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			  		<span class="sr-only">Error:</span>
-			  			Choose an answer option
+				<!-- Question 3 -->
+				<div class="panel panel-default">
+  					<div class="panel-body">
+					<p><strong>3. What is 2 &divide; 2 ?</strong></p>
+		   			<label class="radio-inline">
+		  				<input type="radio" name="question3" id="inlineRadio31" value="1"> 1
+					</label>
+					<label class="radio-inline">
+		  				<input type="radio" name="question3" id="inlineRadio32" value="2"> 2
+					</label>
+					<label class="radio-inline">
+		  				<input type="radio" name="question3" id="inlineRadio33" value="3"> 3
+					</label>
+					<!--Error div -->
+					<div id="question3-error" class="alert alert-danger" role="alert" style="display:none;">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  		<span class="sr-only">Error:</span>
+				  			Choose an answer option
+					</div>
+					<!--Feedback div -->
+					<p class="text-info"><%= typeof feedback !='undefined' ? feedback.answer3.response : '' %></p>
+					</div>
 				</div>
-				<!--Feedback div -->
-				<p class="text-danger"><%= typeof feedback !='undefined' ? feedback.answer3.response : '' %></p>
-			</div>
-			<button id="submit-answers" type="submit" class="btn btn-success">Submit Answers</button>
-   		</form>		
-   		
- 	<% } 
- 		else if(user.DESCRIPTION === 'Administrator') { %>
- 		<p class="bg-info">Customers were allowed to submit answers multiple times.	</p>  
-   		<table class="table">
-   			<caption>Answers submitted by the customer</caption>
-   			<thead>
-   				<tr>
-   					<th>Customer Full Name</th>
-   					<th>Answer 1</th>
-   					<th>Status</th>
-   					<th>Answer2</th>
-   					<th>Status</th>
-   					<th>Answer3</th>
-   					<th>Status</th>
-   				</tr>
-   			</thead>
-   			<tbody>
-   				<% for(var i=0; i<answers.length; i++) {%>
-					<tr>
-						<td><%= answers[i].FULL_NAME %></td>
-						<td><%= answers[i].ANSWER_ONE %></td>
-						<td><%= answers[i].FEEDBACK_ONE %></td>
-						<td><%= answers[i].ANSWER_TWO %></td>
-						<td><%= answers[i].FEEDBACK_TWO %></td>
-						<td><%= answers[i].ANSWER_THREE %></td>
-						<td><%= answers[i].FEEDBACK_THREE %></td>
-					</tr>
-				<% } %>
-   			</tbody>
-   		</table>
-	<% } %>
-
-	<p class="text-right"><a href="/logout">Logout</a></p>
+				<div>
+					<button id="submit-answers" type="submit" class="btn btn-success">Submit Answers
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					</button>
+				</div>
+	   		</form>		
+	   		
+	 	<% } 
+	 		else if(user.DESCRIPTION === 'Administrator') { %>
+	 		<div class="alert alert-info" role="alert">
+	 		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	 		Customers were allowed to submit answers multiple times.
+	 		</div>
+	   		<table class="table table-hover">
+	   			<caption>Answers submitted by the customers</caption>
+	   			<thead>
+	   				<tr>
+	   					<th>S. No.</th>
+	   					<th>Customer Full Name</th>
+	   					<th>Answer 1</th>
+	   					<th>Status</th>
+	   					<th>Answer2</th>
+	   					<th>Status</th>
+	   					<th>Answer3</th>
+	   					<th>Status</th>
+	   				</tr>
+	   			</thead>
+	   			<tbody>
+	   				<% for(var i=0; i<answers.length; i++) {%>
+						<tr>
+							<td><%= (i+1) %></td>
+							<td><%= answers[i].FULL_NAME %></td>
+							<td><%= answers[i].ANSWER_ONE %></td>
+							<td><%= answers[i].FEEDBACK_ONE %></td>
+							<td><%= answers[i].ANSWER_TWO %></td>
+							<td><%= answers[i].FEEDBACK_TWO %></td>
+							<td><%= answers[i].ANSWER_THREE %></td>
+							<td><%= answers[i].FEEDBACK_THREE %></td>
+						</tr>
+					<% } %>
+	   			</tbody>
+	   		</table>
+		<% } %>
+	</div>
+	<footer>
+			<hr/>
+			<p class="text-center"><span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> <a href="mailto:srikriss@andrew.cmu.edu">srikriss@andrew.cmu.edu</a></p>
+		</footer>
 </body>
 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
