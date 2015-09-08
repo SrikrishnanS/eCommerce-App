@@ -21,5 +21,17 @@ module.exports = {
 		connection.query(statement,[userId,answerOne,answerTwo,answerThree,feedbackOne,feedbackTwo,feedbackThree], function(err, rows, fields) {
 			if (err) throw err;
 		});
+	},
+	getCustomerResponses : function(res) {
+		var statement = 'SELECT U.FULL_NAME, R.ANSWER_ONE, R.FEEDBACK_ONE, R.ANSWER_TWO, R.FEEDBACK_TWO, R.ANSWER_THREE, R.FEEDBACK_THREE FROM COMM_USERS U, COMM_USER_RESPONSES R WHERE U.ID = R.USER_ID';
+			connection.query(statement, function(err, rows, fields) {
+			if (err) throw err;
+
+			answers = rows;
+			res.render('home', {
+				'user' : user,
+				'answers' : answers
+			});
+		});
 	}
 };

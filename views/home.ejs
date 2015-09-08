@@ -6,7 +6,7 @@
 	<h3>Welcome <%= user.FULL_NAME %>!</h3>
 	<p>Logged in as <%= user.DESCRIPTION %></p>
 	
-	<% if(user.DESCRIPTION === 'Customer'){ %>
+	<% if(user.DESCRIPTION === 'Customer') { %>
    		Answer the following questions:
    		<form method="POST" action="/home/">
    			<!-- Question 1 -->
@@ -55,8 +55,35 @@
    		</form>		
    		
  	<% } 
- 		else if(user.DESCRIPTION === 'Administrator'){ %>  
-   		Administrator
+ 		else if(user.DESCRIPTION === 'Administrator') { %>
+ 		<p class="bg-info">Customers were allowed to submit answers multiple times.	</p>  
+   		<table class="table">
+   			<caption>Answers submitted by the customer</caption>
+   			<thead>
+   				<tr>
+   					<th>Customer Full Name</th>
+   					<th>Answer 1</th>
+   					<th>Status</th>
+   					<th>Answer2</th>
+   					<th>Status</th>
+   					<th>Answer3</th>
+   					<th>Status</th>
+   				</tr>
+   			</thead>
+   			<tbody>
+   				<% for(var i=0; i<answers.length; i++) {%>
+					<tr>
+						<td><%= answers[i].FULL_NAME %></td>
+						<td><%= answers[i].ANSWER_ONE %></td>
+						<td><%= answers[i].FEEDBACK_ONE %></td>
+						<td><%= answers[i].ANSWER_TWO %></td>
+						<td><%= answers[i].FEEDBACK_TWO %></td>
+						<td><%= answers[i].ANSWER_THREE %></td>
+						<td><%= answers[i].FEEDBACK_THREE %></td>
+					</tr>
+				<% } %>
+   			</tbody>
+   		</table>
 	<% } %>
 
 	<p class="text-right"><a href="/logout">Logout</a></p>

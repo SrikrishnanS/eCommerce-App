@@ -8,7 +8,9 @@ router.get('/', function(req, res, next) {
 	if(authService.isAuthenticated(req))
 		res.redirect('/home/');
 	else	
-  		res.render('login',{loginFail:false});
+  		res.render('login', {
+  			loginFail:false
+  		});
 });
 
 /** POST login information to check if such an user exists. */
@@ -23,7 +25,9 @@ router.get('/failed', function(req, res, next) {
 	if(authService.isAuthenticated(req))
 		res.redirect('/home/');
 	else
-  		res.render('login',{loginFail:true});
+  		res.render('login', {
+  			loginFail:true
+  		});
 });
 
 module.exports = router;
