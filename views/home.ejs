@@ -1,14 +1,23 @@
 <html>
 <head>
-	<link rel="stylesheet" href="/css/style.css"/>
+ 	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="/js/html5shiv.min.js" %}"></script>
+			<script src="/js/respond.min.js" %}"></script>
+		<![endif]-->
 </head>
 <body>
 	<h3>Welcome <%= user.FULL_NAME %>!</h3>
-	<p>Logged in as <%= user.DESCRIPTION %></p>
+	<p class="text-right">Logged in as <%= user.DESCRIPTION %></p>
 	
 	<% if(user.DESCRIPTION === 'Customer') { %>
    		Answer the following questions:
-   		<form method="POST" action="/home/">
+   		<form id="answer-form" method="POST" action="/home/">
    			<!-- Question 1 -->
    			<div>
    				<p>1. What is 2 + 2?</p>
@@ -21,6 +30,13 @@
 				<label class="radio-inline">
 	  				<input type="radio" name="question1" id="question13" value="6"> 6
 				</label>
+				<!--Error div -->
+				<div id="question1-error" class="alert alert-danger" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			  		<span class="sr-only">Error:</span>
+			  			Choose an answer option
+				</div>
+				<!--Feedback div -->
 				<p class="text-danger"><%= typeof feedback !='undefined' ? feedback.answer1.response : '' %></p>
 			</div>
 			<!-- Question 2 -->
@@ -35,6 +51,13 @@
 				<label class="radio-inline">
 	  				<input type="radio" name="question2" id="inlineRadio23" value="36"> 36
 				</label>
+				<!--Error div -->
+				<div id="question2-error" class="alert alert-danger" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			  		<span class="sr-only">Error:</span>
+			  			Choose an answer option
+				</div>
+				<!--Feedback div -->
 				<p class="text-danger"><%= typeof feedback !='undefined' ? feedback.answer2.response : '' %></p>
 			</div>
 			<!-- Question 3 -->
@@ -49,9 +72,16 @@
 				<label class="radio-inline">
 	  				<input type="radio" name="question3" id="inlineRadio33" value="3"> 3
 				</label>
+				<!--Error div -->
+				<div id="question3-error" class="alert alert-danger" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			  		<span class="sr-only">Error:</span>
+			  			Choose an answer option
+				</div>
+				<!--Feedback div -->
 				<p class="text-danger"><%= typeof feedback !='undefined' ? feedback.answer3.response : '' %></p>
 			</div>
-			<button type="submit" class="btn btn-success">Submit Answers</button>
+			<button id="submit-answers" type="submit" class="btn btn-success">Submit Answers</button>
    		</form>		
    		
  	<% } 
@@ -98,5 +128,31 @@
 		$("input[name=question2][value=" + answer2 + "]").attr('checked', 'checked');
 		$("input[name=question3][value=" + answer3 + "]").attr('checked', 'checked');
 	}
+	var hideDiv = function() {
+		$("#question1-error").hide();
+		$("#question2-error").hide();
+		$("#question3-error").hide();
+	};
+
+	hideDiv();
+
+	$("#answer-form").on('submit', function(event) {
+		var valid = true;
+		hideDiv();
+		if(!$("input[name=question1]:checked").val()){
+			$("#question1-error").show();
+			valid = false;
+		}
+		if(!$("input[name=question2]:checked").val()) {
+			$("#question2-error").show();
+			valid = false;
+		}
+		if(!$("input[name=question3]:checked").val()){
+			$("#question3-error").show();
+			valid = false;
+		}
+		if(!valid)
+			event.preventDefault();
+	});
 </script>
 </html>
