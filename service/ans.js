@@ -8,6 +8,7 @@ var connection = mysql.createConnection({
 });
 
 module.exports = {
+	//Store the user responses in the database
 	recordResponses : function(user, responses) {
 		var statement = 'INSERT INTO COMM_USER_RESPONSES (USER_ID,ANSWER_ONE,ANSWER_TWO,ANSWER_THREE,FEEDBACK_ONE,FEEDBACK_TWO,FEEDBACK_THREE) VALUES(?,?,?,?,?,?,?)';
 		var userId = user.ID;
@@ -22,6 +23,7 @@ module.exports = {
 			if (err) throw err;
 		});
 	},
+	//Fetch all the customer response details
 	getCustomerResponses : function(res) {
 		var statement = 'SELECT U.FULL_NAME, R.ANSWER_ONE, R.FEEDBACK_ONE, R.ANSWER_TWO, R.FEEDBACK_TWO, R.ANSWER_THREE, R.FEEDBACK_THREE FROM COMM_USERS U, COMM_USER_RESPONSES R WHERE U.ID = R.USER_ID';
 			connection.query(statement, function(err, rows, fields) {

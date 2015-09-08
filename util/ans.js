@@ -1,3 +1,4 @@
+//Util method to validate the user answers
 module.exports = {
 	validate : function(answer1, answer2, answer3) {
 		var f1='Incorrect', f2='Incorrect', f3='Incorrect';

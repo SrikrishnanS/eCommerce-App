@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
   		res.redirect('/login/');
 });
 
+/* Logout the user and REDIRECT to login page*/
 router.get('/logout', function(req, res, next) {
 	authService.logout(req);
   	res.redirect('/login/');

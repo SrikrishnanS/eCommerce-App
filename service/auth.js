@@ -8,12 +8,15 @@ var connection = mysql.createConnection({
 });
 
 module.exports = {
+	//Test if the request's user is authenticated
 	isAuthenticated : function(req) {
 		return (req.session && req.session.user);
 	},
+	//Logout the user by destroying the session
 	logout : function(req) {
 		req.session.destroy();
 	},
+	//Authenticate the given request using the username and password and redirect to home page
 	authenticate : function(username, password, req, res) {
 			var statement = 'SELECT U.ID, U.FULL_NAME, U.USERNAME, U.PASSWORD, R.DESCRIPTION FROM COMM_USERS U, COMM_ROLES R, COMM_USER_ROLES UR WHERE U.ID = UR.USER_ID AND R.ID=UR.ROLE_ID  AND U.USERNAME = ? AND U.PASSWORD = ?';
 			connection.query(statement,[username,password], function(err, rows, fields) {
