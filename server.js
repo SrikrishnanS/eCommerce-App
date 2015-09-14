@@ -10,6 +10,7 @@ var routes = require('./controller/index');
 var health = require('./controller/health');
 var login = require('./controller/login');
 var home = require('./controller/home');
+var user = require('./controller/user');
 
 var serverConfig = require('./config/server');
 
@@ -31,6 +32,7 @@ app.use('/', routes);
 app.use('/health', health);
 app.use('/login', login);
 app.use('/home', home);
+app.use('/registerUser', user);
 
 
 // catch 404 and forward to error handler
