@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-/*
+
 
 // error handlers
 
@@ -54,7 +54,7 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
-}*/
+}
 
 // production error handler
 // no stacktraces leaked to user
