@@ -16,17 +16,45 @@ router.post('/registerUser', function(req, res, next) {
 		"username" : !(typeof req.query.uName == 'undefined') ? req.query.uName : null,
 		"password" : !(typeof req.query.pWord == 'undefined') ? req.query.pWord : null,
 	};
-	userService.registerUserAndRespond(user,req,res);
+	userService.registerUserAndRespond(user, res);
 });
 
-/* REST-JSON-POST get set of user. */
+/* REST-JSON-GET list of user. */
 router.get('/viewUsers', function(req, res, next) {
-	console.log('werwerwer');
+	var sessionID = req.query.sessionID;
+	if (sessionID != req.sessionID) {
+		res.json({
+			"err_message" : "Invalid sessionID"
+		});
+		return;
+	}
+	if(req.session.user.DESCRIPTION != 'Administrator') {
+		res.json({
+			"err_message" : "Access Forbidden"
+		});
+		return;
+	}
 	var user = {
 		"firstName" : !(typeof req.query.fName == 'undefined') ? req.query.fName : null,
 		"lastName" : !(typeof req.query.lName == 'undefined') ? req.query.lName : null
 	};
-	userService.viewUsersAndRespond(user,req,res);
+	userService.viewUsersAndRespond(user, res);
+});
+
+/* REST-JSON-POST update user contact */
+router.post('/updateInfo', function(req, res, next) {
+	var user = {};
+	if (typeof req.query.fName != 'undefined') user["FIRST_NAME"] = req.query.fName;
+	if (typeof req.query.lName != 'undefined') user["LAST_NAME"] = req.query.lName;
+	if (typeof req.query.address != 'undefined') user["ADDRESS"] = req.query.address;
+	if (typeof req.query.city != 'undefined') user["CITY"] = req.query.city;
+	if (typeof req.query.state != 'undefined') user["STATE"] = req.query.state;
+	if (typeof req.query.zip != 'undefined') user["ZIP"] = req.query.zip;
+	if (typeof req.query.email != 'undefined') user["EMAIL"] = req.query.email;
+	if (typeof req.query.uName != 'undefined') user["USERNAME"] = req.query.uName;
+	if (typeof req.query.pWord != 'undefined') user["PASSWORD"] = req.query.pWord;
+
+	userService.updateUserAndRespond(user, res);
 });
 
 module.exports = router;
