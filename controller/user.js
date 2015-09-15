@@ -4,8 +4,7 @@ var userService = require('./../service/user');
 var router = express.Router();
 
 /* REST-JSON-POST register user. */
-router.post('/', function(req, res, next) {
-	console.log("1");
+router.post('/registerUser', function(req, res, next) {
 	var user = {
 		"firstName" : !(typeof req.query.fName == 'undefined') ? req.query.fName : null,
 		"lastName" : !(typeof req.query.lName == 'undefined') ? req.query.lName : null,
@@ -18,6 +17,16 @@ router.post('/', function(req, res, next) {
 		"password" : !(typeof req.query.pWord == 'undefined') ? req.query.pWord : null,
 	};
 	userService.registerUserAndRespond(user,req,res);
+});
+
+/* REST-JSON-POST get set of user. */
+router.get('/viewUsers', function(req, res, next) {
+	console.log('werwerwer');
+	var user = {
+		"firstName" : !(typeof req.query.fName == 'undefined') ? req.query.fName : null,
+		"lastName" : !(typeof req.query.lName == 'undefined') ? req.query.lName : null
+	};
+	userService.viewUsersAndRespond(user,req,res);
 });
 
 module.exports = router;

@@ -8,6 +8,29 @@ var connection = mysql.createConnection({
 });
 
 module.exports = {
+	// Fetch a list of users using partial first name and last name
+	viewUsersAndRespond : function(user, req, res) {
+		var statement = 'SELECT U.USERNAME, U.FIRST_NAME, U.LAST_NAME, U.ADDRESS, U.CITY, U.STATE, U.ZIP, U.EMAIL, R.DESCRIPTION FROM COMM_USERS U, COMM_ROLES R, COMM_USER_ROLES UR WHERE U.ID = UR.USER_ID AND R.ID=UR.ROLE_ID  AND (U.FIRST_NAME LIKE "%'+user.firstName+'%" OR U.LAST_NAME LIKE "%'+user.lastName+'%")';
+			connection.query(statement, function(err, rows, fields) {
+			var jsonResponse;
+			if (err) {
+				jsonResponse = {
+					"message" : "There was a problem fetching the users"
+				};
+				console.log(err);
+				res.json(jsonResponse);
+				return;
+			}
+			else {
+				jsonResponse = {
+					"user_list" : rows
+				};
+				res.json(jsonResponse);
+			}
+			
+		});
+	},
+
 	//Register a user as customer with his details and also register the role
 	registerUserAndRespond : function(user, req, res) {
 		var statement = 'INSERT INTO COMM_USERS (FIRST_NAME,LAST_NAME,ADDRESS, CITY, STATE, ZIP, EMAIL, USERNAME, PASSWORD) VALUES(?,?,?,?,?,?,?,?,?);';
