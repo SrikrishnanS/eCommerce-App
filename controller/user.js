@@ -62,7 +62,7 @@ router.post('/updateInfo', function(req, res, next) {
 	if (typeof req.query.uName != 'undefined') user["USERNAME"] = req.query.uName;
 	if (typeof req.query.pWord != 'undefined') user["PASSWORD"] = req.query.pWord;
 
-	userService.updateUserAndRespond(user, req.session.user.ID, res);
+	userService.updateUserAndRespond(user, req.session.user.ID, res, req.session);
 });
 
 module.exports = router;

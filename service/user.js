@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
 module.exports = {
 
 	//Update the given fields of a given user
-	updateUserAndRespond : function(user, userId, res) {
+	updateUserAndRespond : function(user, userId, res, session) {
 		var statement = "UPDATE COMM_USERS SET ";
 		for(field in user) {
 			statement += field + " = '" + user[field] + "',";
@@ -31,6 +31,10 @@ module.exports = {
 				return;
 			}
 			else {
+				for(field in user) {
+					session.user[field] = user[field];
+				}
+
 				jsonResponse = {
 					"message" : "Your information has been updated"
 				};
