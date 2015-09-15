@@ -10,6 +10,7 @@ var productFile = "./Project2Data.txt";
 var idExp = /Id:(\s*)(\d+)/
 var asinExp = /ASIN:(\s*)(\d+)/
 var titleExp = /(\s*)title:(\s*)(.+)/
+var groupExp = /(\s*)group:(\s*)(.+)/
 var categoryExp = /(\s*)\|(.+)/
 var product = [];
 
@@ -22,16 +23,19 @@ new lazy(fs.createReadStream(productFile)).lines.forEach(function(item){
     	product.push(new Object());
     	product[itemNumber].ID = parseInt(line.match(idExp)[2]);
     }
-    if(line.match(asinExp)) { //For ASINs
+    else if(line.match(asinExp)) { //For ASINs
     	product[itemNumber].asin = line.match(asinExp)[2];
     }
-    if(line.match(titleExp)) { //For titles
+    else if(line.match(titleExp)) { //For titles
     	product[itemNumber].title = line.match(titleExp)[3];
     }
-    if(line.match(categoryExp)) {//For categories
+    else if(line.match(groupExp)) { //For group
+    	product[itemNumber].group = line.match(groupExp)[3];
+    }
+    else if(line.match(categoryExp)) {//For categories
     	product[itemNumber].categories = product[itemNumber].categories || []; //check if array already exists, or else create it
     	product[itemNumber].categories.push(line.match(categoryExp)[2]); //push the new category for the particular product
     }
 }).on('pipe', function() {
-      console.log(product.length);
-    });
+    console.log(product);
+});
