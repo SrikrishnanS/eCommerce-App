@@ -43,6 +43,14 @@ router.get('/viewUsers', function(req, res, next) {
 
 /* REST-JSON-POST update user contact */
 router.post('/updateInfo', function(req, res, next) {
+	var sessionID = req.query.sessionID;
+	if (sessionID != req.sessionID) {
+		res.json({
+			"err_message" : "Invalid sessionID"
+		});
+		return;
+	}
+
 	var user = {};
 	if (typeof req.query.fName != 'undefined') user["FIRST_NAME"] = req.query.fName;
 	if (typeof req.query.lName != 'undefined') user["LAST_NAME"] = req.query.lName;
@@ -54,7 +62,7 @@ router.post('/updateInfo', function(req, res, next) {
 	if (typeof req.query.uName != 'undefined') user["USERNAME"] = req.query.uName;
 	if (typeof req.query.pWord != 'undefined') user["PASSWORD"] = req.query.pWord;
 
-	userService.updateUserAndRespond(user, res);
+	userService.updateUserAndRespond(user, req.session.user.ID, res);
 });
 
 module.exports = router;

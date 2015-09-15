@@ -10,13 +10,21 @@ var connection = mysql.createConnection({
 module.exports = {
 
 	//Update the given fields of a given user
-	updateUserAndRespond : function() {
-		/*var statement = 'SELECT U.USERNAME, U.FIRST_NAME, U.LAST_NAME, U.ADDRESS, U.CITY, U.STATE, U.ZIP, U.EMAIL, R.DESCRIPTION FROM COMM_USERS U, COMM_ROLES R, COMM_USER_ROLES UR WHERE U.ID = UR.USER_ID AND R.ID=UR.ROLE_ID  AND (U.FIRST_NAME LIKE "%'+user.firstName+'%" OR U.LAST_NAME LIKE "%'+user.lastName+'%")';
+	updateUserAndRespond : function(user, userId, res) {
+		var statement = "UPDATE COMM_USERS SET ";
+		for(field in user) {
+			statement += field + " = '" + user[field] + "',";
+		}
+		statement +=" WHERE ID = "+userId+";";
+
+		var pos = statement.lastIndexOf(',');
+		statement = statement.substr(0,pos) + statement.substr(pos+1);
+		console.log(statement);
 			connection.query(statement, function(err, rows, fields) {
 			var jsonResponse;
 			if (err) {
 				jsonResponse = {
-					"message" : "There was a problem fetching the users"
+					"message" : "There was a problem with this action"
 				};
 				console.log(err);
 				res.json(jsonResponse);
@@ -24,12 +32,12 @@ module.exports = {
 			}
 			else {
 				jsonResponse = {
-					"user_list" : rows
+					"message" : "Your information has been updated"
 				};
 				res.json(jsonResponse);
 			}
 			
-		});*/
+		});
 	},
 
 	// Fetch a list of users using partial first name and last name
