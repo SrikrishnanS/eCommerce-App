@@ -11,6 +11,7 @@ var health = require('./controller/health');
 var login = require('./controller/login');
 var home = require('./controller/home');
 var user = require('./controller/user');
+var product = require('./controller/product');
 
 var serverConfig = require('./config/server');
 
@@ -33,6 +34,7 @@ app.use('/health', health);
 app.use('/login', login);
 app.use('/home', home);
 app.use('/', user);
+app.use('/', product);
 
 
 // catch 404 and forward to error handler
