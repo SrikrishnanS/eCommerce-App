@@ -41,7 +41,7 @@ router.get('/viewUsers', function(req, res, next) {
 	userService.viewUsersAndRespond(user, res);
 });
 
-/* REST-JSON-POST update user contact */
+/* REST-JSON-POST update user contact. */
 router.post('/updateInfo', function(req, res, next) {
 	var sessionID = req.query.sessionID;
 	if (sessionID != req.sessionID) {

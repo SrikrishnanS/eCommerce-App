@@ -1,4 +1,4 @@
-//independent script file to lazy-read the input data file and write the data
+//independent script file to lazy-read the input data file and write the data to csv files
 // Run this by - node extract.js
 
 var file = require('fs');

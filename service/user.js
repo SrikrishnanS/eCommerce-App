@@ -19,12 +19,11 @@ module.exports = {
 
 		var pos = statement.lastIndexOf(',');
 		statement = statement.substr(0,pos) + statement.substr(pos+1);
-		console.log(statement);
-			connection.query(statement, function(err, rows, fields) {
+		connection.query(statement, function(err, rows, fields) {
 			var jsonResponse;
 			if (err) {
 				jsonResponse = {
-					"message" : "There was a problem with this action"
+					"message" : "There was a problem with this action."
 				};
 				console.log(err);
 				res.json(jsonResponse);
@@ -36,7 +35,7 @@ module.exports = {
 				}
 
 				jsonResponse = {
-					"message" : "Your information has been updated"
+					"message" : "Your information has been updated."
 				};
 				res.json(jsonResponse);
 			}
@@ -51,7 +50,7 @@ module.exports = {
 			var jsonResponse;
 			if (err) {
 				jsonResponse = {
-					"message" : "There was a problem fetching the users"
+					"message" : "There was a problem fetching the users."
 				};
 				console.log(err);
 				res.json(jsonResponse);
@@ -75,7 +74,7 @@ module.exports = {
 			var jsonResponse;
 			if (err) {
 				jsonResponse = {
-					"message" : "There was a problem with your registration"
+					"message" : "There was a problem with your registration."
 				};
 				console.log(err);
 				res.json(jsonResponse);
@@ -90,14 +89,14 @@ module.exports = {
 				connection.query(secondStatement,[userId,customerRoleId], function(err, rows, fields) {				
 					if (err) {
 						jsonResponse = {
-							"message" : "There was a problem with your registration"
+							"message" : "There was a problem with your registration."
 						};
 						console.log(err);
 						res.json(jsonResponse);
 					}
 					else{
 						jsonResponse = {
-							"message" : "Your account has been registered"
+							"message" : "Your account has been registered."
 						};
 						
 						res.json(jsonResponse);

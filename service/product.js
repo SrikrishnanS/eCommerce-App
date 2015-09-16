@@ -9,6 +9,37 @@ var connection = mysql.createConnection({
 
 module.exports = {
 
+	//Update the given fields of a given product
+	updateProductAndRespond : function(product, productId, res) {
+		var statement = "UPDATE COMM_PRODUCTS SET ";
+		for(field in product) {
+			statement += field + " = '" + product[field] + "',";
+		}
+		statement +=" WHERE ID = "+productId+";";
+
+		var pos = statement.lastIndexOf(',');
+		statement = statement.substr(0,pos) + statement.substr(pos+1);
+		console.log(statement);
+		connection.query(statement, function(err, rows, fields) {
+			var jsonResponse;
+			if (err) {
+				jsonResponse = {
+					"message" : "There was a problem with this action."
+				};
+				console.log(err);
+				res.json(jsonResponse);
+				return;
+			}
+			else {
+				jsonResponse = {
+					"message" : "The product information has been updated."
+				};
+				res.json(jsonResponse);
+			}
+			
+		});
+	},
+
 	//Fetch a list of products matching the filter criteria
 	getProductsAndRespond : function(product, res) {
 		var statement;

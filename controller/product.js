@@ -14,4 +14,27 @@ router.get('/getProducts', function(req, res, next) {
 	productService.getProductsAndRespond(product, res);
 });
 
+/* REST-JSON-POST update product information. */
+router.post('/modifyProduct', function(req, res, next) {
+	var sessionID = req.query.sessionID;
+	if (sessionID != req.sessionID) {
+		res.json({
+			"err_message" : "Invalid sessionID"
+		});
+		return;
+	}
+
+	if(req.session.user.DESCRIPTION != 'Administrator') {
+		res.json({
+			"err_message" : "Access Forbidden"
+		});
+		return;
+	}
+	var product = {};
+	if (typeof req.query.productDescription != 'undefined') product["DESCRIPTION"] = req.query.productDescription;
+	if (typeof req.query.productTitle != 'undefined') product["TITLE"] = req.query.productTitle;
+
+	productService.updateProductAndRespond(product, req.query.productId, res);
+});
+
 module.exports = router;
