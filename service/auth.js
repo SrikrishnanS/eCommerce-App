@@ -30,11 +30,20 @@ module.exports = {
 			else if (rows.length == 1) {
 				user = rows[0];
 				req.session.user = user;
-				jsonResponse = {
-					"err_message" : "",
-					"menu":[],
-					"sessionID":req.sessionID
-				};
+				if(user.DESCRIPTION==='Administrator'){
+					jsonResponse = {
+						"err_message" : "",
+						"menu":['Login','Logout','Update Contact','Modify Product','View Users','View Products'],
+						"sessionID":req.sessionID
+					};
+				}
+				else {
+					jsonResponse = {
+						"err_message" : "",
+						"menu":['Login','Logout','Update Contact','View Products'],
+						"sessionID":req.sessionID
+					};	
+				}
 			}
 			res.json(jsonResponse);
 		});
