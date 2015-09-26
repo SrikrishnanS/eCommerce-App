@@ -35,8 +35,8 @@ router.get('/viewUsers', function(req, res, next) {
 		return;
 	}
 	var user = {
-		"firstName" : !(typeof req.body.fname == 'undefined') ? req.body.fname : '',
-		"lastName" : !(typeof req.body.lname == 'undefined') ? req.body.lname : ''
+		"firstName" : !(typeof req.query.fname == 'undefined') ? req.query.fname : '',
+		"lastName" : !(typeof req.query.lname == 'undefined') ? req.query.lname : ''
 	};
 	userService.viewUsersAndRespond(user, res);
 });

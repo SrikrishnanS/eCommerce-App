@@ -8,9 +8,9 @@ var router = express.Router();
 
 router.get('/getProducts', function(req, res, next) {
 	var product = {
-		"productId" : !(typeof req.body.productId == 'undefined') ? req.body.productId : '',
-		"category" : !(typeof req.body.category == 'undefined') ? req.body.category : '',
-		"keyword" : !(typeof req.body.keyword == 'undefined') ? req.body.keyword : ''
+		"productId" : !(typeof req.query.productId == 'undefined') ? req.query.productId : '',
+		"category" : !(typeof req.query.category == 'undefined') ? req.query.category : '',
+		"keyword" : !(typeof req.query.keyword == 'undefined') ? req.query.keyword : ''
 	};
 	productService.getProductsAndRespond(product, res);
 });
