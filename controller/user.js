@@ -6,22 +6,22 @@ var router = express.Router();
 /* REST-JSON-POST register user. */
 router.post('/registerUser', function(req, res, next) {
 	var user = {
-		"firstName" : !(typeof req.query.fName == 'undefined') ? req.query.fName : null,
-		"lastName" : !(typeof req.query.lName == 'undefined') ? req.query.lName : null,
-		"address" : !(typeof req.query.address == 'undefined') ? req.query.address : null,
-		"city" : !(typeof req.query.city == 'undefined') ? req.query.city : null,
-		"state" : !(typeof req.query.state == 'undefined')  ?req.query.state : null,
-		"zip" : !(typeof req.query.zip == 'undefined') ? req.query.zip : null,
-		"email" : !(typeof req.query.email == 'undefined') ? req.query.email : null,
-		"username" : !(typeof req.query.uName == 'undefined') ? req.query.uName : null,
-		"password" : !(typeof req.query.pWord == 'undefined') ? req.query.pWord : null,
+		"firstName" : !(typeof req.body.fname == 'undefined') ? req.body.fname : null,
+		"lastName" : !(typeof req.body.lname == 'undefined') ? req.body.lname : null,
+		"address" : !(typeof req.body.address == 'undefined') ? req.body.address : null,
+		"city" : !(typeof req.body.city == 'undefined') ? req.body.city : null,
+		"state" : !(typeof req.body.state == 'undefined')  ?req.body.state : null,
+		"zip" : !(typeof req.body.zip == 'undefined') ? req.body.zip : null,
+		"email" : !(typeof req.body.email == 'undefined') ? req.body.email : null,
+		"username" : !(typeof req.body.username == 'undefined') ? req.body.username : null,
+		"password" : !(typeof req.body.password == 'undefined') ? req.body.password : null,
 	};
 	userService.registerUserAndRespond(user, res);
 });
 
 /* REST-JSON-GET list of user. */
 router.get('/viewUsers', function(req, res, next) {
-	var sessionID = req.query.sessionID;
+	var sessionID = req.body.sessionID;
 	if (sessionID != req.sessionID) {
 		res.json({
 			"err_message" : "Invalid sessionID"
@@ -35,15 +35,15 @@ router.get('/viewUsers', function(req, res, next) {
 		return;
 	}
 	var user = {
-		"firstName" : !(typeof req.query.fName == 'undefined') ? req.query.fName : '',
-		"lastName" : !(typeof req.query.lName == 'undefined') ? req.query.lName : ''
+		"firstName" : !(typeof req.body.fName == 'undefined') ? req.body.fName : '',
+		"lastName" : !(typeof req.body.lName == 'undefined') ? req.body.lName : ''
 	};
 	userService.viewUsersAndRespond(user, res);
 });
 
 /* REST-JSON-POST update user contact. */
 router.post('/updateInfo', function(req, res, next) {
-	var sessionID = req.query.sessionID;
+	var sessionID = req.body.sessionID;
 	if (sessionID != req.sessionID) {
 		res.json({
 			"err_message" : "Invalid sessionID"
@@ -52,15 +52,15 @@ router.post('/updateInfo', function(req, res, next) {
 	}
 
 	var user = {};
-	if (typeof req.query.fName != 'undefined') user["FIRST_NAME"] = req.query.fName;
-	if (typeof req.query.lName != 'undefined') user["LAST_NAME"] = req.query.lName;
-	if (typeof req.query.address != 'undefined') user["ADDRESS"] = req.query.address;
-	if (typeof req.query.city != 'undefined') user["CITY"] = req.query.city;
-	if (typeof req.query.state != 'undefined') user["STATE"] = req.query.state;
-	if (typeof req.query.zip != 'undefined') user["ZIP"] = req.query.zip;
-	if (typeof req.query.email != 'undefined') user["EMAIL"] = req.query.email;
-	if (typeof req.query.uName != 'undefined') user["USERNAME"] = req.query.uName;
-	if (typeof req.query.pWord != 'undefined') user["PASSWORD"] = req.query.pWord;
+	if (typeof req.body.fName != 'undefined') user["FIRST_NAME"] = req.body.fName;
+	if (typeof req.body.lName != 'undefined') user["LAST_NAME"] = req.body.lName;
+	if (typeof req.body.address != 'undefined') user["ADDRESS"] = req.body.address;
+	if (typeof req.body.city != 'undefined') user["CITY"] = req.body.city;
+	if (typeof req.body.state != 'undefined') user["STATE"] = req.body.state;
+	if (typeof req.body.zip != 'undefined') user["ZIP"] = req.body.zip;
+	if (typeof req.body.email != 'undefined') user["EMAIL"] = req.body.email;
+	if (typeof req.body.uName != 'undefined') user["USERNAME"] = req.body.uName;
+	if (typeof req.body.pWord != 'undefined') user["PASSWORD"] = req.body.pWord;
 
 	userService.updateUserAndRespond(user, req.session.user.ID, res, req.session);
 });

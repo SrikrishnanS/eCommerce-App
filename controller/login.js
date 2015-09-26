@@ -24,8 +24,8 @@ router.post('/', function(req, res, next) {
 		res.json(jsonResponse);
 	}		
 	else {
-		var username = req.query.username;
-		var password = req.query.password;
+		var username = req.body.username;
+		var password = req.body.password;
 		authService.authenticateAndRespond(username, password, req, res);
 	}
 });

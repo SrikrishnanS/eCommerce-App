@@ -7,16 +7,16 @@ var router = express.Router();
 
 router.get('/getProducts', function(req, res, next) {
 	var product = {
-		"productId" : !(typeof req.query.productId == 'undefined') ? req.query.productId : '',
-		"category" : !(typeof req.query.category == 'undefined') ? req.query.category : '',
-		"keyword" : !(typeof req.query.keyword == 'undefined') ? req.query.keyword : ''
+		"productId" : !(typeof req.body.productId == 'undefined') ? req.body.productId : '',
+		"category" : !(typeof req.body.category == 'undefined') ? req.body.category : '',
+		"keyword" : !(typeof req.body.keyword == 'undefined') ? req.body.keyword : ''
 	};
 	productService.getProductsAndRespond(product, res);
 });
 
 /* REST-JSON-POST update product information. */
 router.post('/modifyProduct', function(req, res, next) {
-	var sessionID = req.query.sessionID;
+	var sessionID = req.body.sessionID;
 	if (sessionID != req.sessionID) {
 		res.json({
 			"err_message" : "Invalid sessionID"
@@ -31,10 +31,10 @@ router.post('/modifyProduct', function(req, res, next) {
 		return;
 	}
 	var product = {};
-	if (typeof req.query.productDescription != 'undefined') product["DESCRIPTION"] = req.query.productDescription;
-	if (typeof req.query.productTitle != 'undefined') product["TITLE"] = req.query.productTitle;
+	if (typeof req.body.productDescription != 'undefined') product["DESCRIPTION"] = req.body.productDescription;
+	if (typeof req.body.productTitle != 'undefined') product["TITLE"] = req.body.productTitle;
 
-	productService.updateProductAndRespond(product, req.query.productId, res);
+	productService.updateProductAndRespond(product, req.body.productId, res);
 });
 
 module.exports = router;

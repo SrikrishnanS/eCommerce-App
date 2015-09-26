@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 /* REST-JSON-Logout the user and REDIRECT to login page*/
 router.post('/logout', function(req, res, next) {
-	var sessionID = req.query.sessionID;
+	var sessionID = req.body.sessionID;
 	var jsonResponse;
 	if (sessionID === req.sessionID){
 		authService.logout(req);
