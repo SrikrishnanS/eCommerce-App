@@ -1,5 +1,6 @@
 var express = require('express');
 var productService = require('./../service/product');
+var authService = require('./../service/auth');
 
 var router = express.Router();
 
@@ -16,10 +17,9 @@ router.get('/getProducts', function(req, res, next) {
 
 /* REST-JSON-POST update product information. */
 router.post('/modifyProduct', function(req, res, next) {
-	var sessionID = req.body.sessionID;
-	if (sessionID != req.sessionID) {
+	if(!authService.isAuthenticated(req)){
 		res.json({
-			"err_message" : "Invalid sessionID"
+			"err_message" : "You are not logged in"
 		});
 		return;
 	}

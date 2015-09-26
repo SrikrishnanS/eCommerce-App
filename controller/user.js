@@ -1,5 +1,6 @@
 var express = require('express');
 var userService = require('./../service/user');
+var authService = require('./../service/auth');
 
 var router = express.Router();
 
@@ -21,10 +22,9 @@ router.post('/registerUser', function(req, res, next) {
 
 /* REST-JSON-GET list of user. */
 router.get('/viewUsers', function(req, res, next) {
-	var sessionID = req.body.sessionID;
-	if (sessionID != req.sessionID) {
+	if(!authService.isAuthenticated(req)){
 		res.json({
-			"err_message" : "Invalid sessionID"
+			"err_message" : "You are not logged in"
 		});
 		return;
 	}
@@ -35,32 +35,31 @@ router.get('/viewUsers', function(req, res, next) {
 		return;
 	}
 	var user = {
-		"firstName" : !(typeof req.body.fName == 'undefined') ? req.body.fName : '',
-		"lastName" : !(typeof req.body.lName == 'undefined') ? req.body.lName : ''
+		"firstName" : !(typeof req.body.fname == 'undefined') ? req.body.fname : '',
+		"lastName" : !(typeof req.body.lname == 'undefined') ? req.body.lname : ''
 	};
 	userService.viewUsersAndRespond(user, res);
 });
 
 /* REST-JSON-POST update user contact. */
 router.post('/updateInfo', function(req, res, next) {
-	var sessionID = req.body.sessionID;
-	if (sessionID != req.sessionID) {
+	if(!authService.isAuthenticated(req)){
 		res.json({
-			"err_message" : "Invalid sessionID"
+			"err_message" : "You are not logged in"
 		});
 		return;
 	}
 
 	var user = {};
-	if (typeof req.body.fName != 'undefined') user["FIRST_NAME"] = req.body.fName;
-	if (typeof req.body.lName != 'undefined') user["LAST_NAME"] = req.body.lName;
+	if (typeof req.body.fname != 'undefined') user["FIRST_NAME"] = req.body.fname;
+	if (typeof req.body.lname != 'undefined') user["LAST_NAME"] = req.body.lname;
 	if (typeof req.body.address != 'undefined') user["ADDRESS"] = req.body.address;
 	if (typeof req.body.city != 'undefined') user["CITY"] = req.body.city;
 	if (typeof req.body.state != 'undefined') user["STATE"] = req.body.state;
 	if (typeof req.body.zip != 'undefined') user["ZIP"] = req.body.zip;
 	if (typeof req.body.email != 'undefined') user["EMAIL"] = req.body.email;
-	if (typeof req.body.uName != 'undefined') user["USERNAME"] = req.body.uName;
-	if (typeof req.body.pWord != 'undefined') user["PASSWORD"] = req.body.pWord;
+	if (typeof req.body.username != 'undefined') user["USERNAME"] = req.body.username;
+	if (typeof req.body.password != 'undefined') user["PASSWORD"] = req.body.password;
 
 	userService.updateUserAndRespond(user, req.session.user.ID, res, req.session);
 });
