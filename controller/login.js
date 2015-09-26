@@ -15,19 +15,15 @@ router.get('/', function(req, res, next) {
 
 /** REST-JSON-POST login information to check if such an user exists. */
 router.post('/', function(req, res, next) {
+
 	if(authService.isAuthenticated(req)) {
-		var jsonResponse = {
-			"err_message" : "The user is already logged in",
-			"menu":[],
-			"sessionID":req.sessionID
-		};
-		res.json(jsonResponse);
+		console.log('The user is already logged in 1');
+		authService.logout(req);
 	}		
-	else {
-		var username = req.body.username;
-		var password = req.body.password;
-		authService.authenticateAndRespond(username, password, req, res);
-	}
+	console.log('The user is already logged in 2');
+	var username = req.body.username;
+	var password = req.body.password;
+	authService.authenticateAndRespond(username, password, req, res);
 });
 
 /** POST login information to check if such an user exists. */

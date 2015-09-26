@@ -14,7 +14,7 @@ module.exports = {
 	},
 	//Logout the user by destroying the session
 	logout : function(req) {
-		req.session.destroy();
+		req.session.regenerate(function(err) {});
 	},
 	//Authenticate the given request using the username and password and redirect to home page
 	authenticateAndRespond : function(username, password, req, res) {
@@ -29,7 +29,9 @@ module.exports = {
 			}
 			else if (rows.length == 1) {
 				user = rows[0];
+				console.log('The user is already logged in 3');
 				req.session.user = user;
+				console.log('The user is already logged in 4');
 				if(user.DESCRIPTION==='Administrator'){
 					jsonResponse = {
 						"err_message" : "",
