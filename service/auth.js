@@ -46,6 +46,7 @@ module.exports = {
 						"sessionID":req.sessionID
 					};	
 				}
+				req.session.cookie.maxAge = new Date(Date.now() + 6000);
 			}
 			res.json(jsonResponse);
 		});
