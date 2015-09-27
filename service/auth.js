@@ -1,5 +1,6 @@
 var mysql      = require('mysql');
 var dbConfig = require('./../config/db');
+var serverConfig = require('./../config/server');
 var connection = mysql.createConnection({
   host     : dbConfig.host,
   database : dbConfig.database,
@@ -46,7 +47,7 @@ module.exports = {
 						"sessionID":req.sessionID
 					};	
 				}
-				req.session.cookie.maxAge = new Date(Date.now() + 6000);
+				req.session.cookie.maxAge = new Date(Date.now() + serverConfig.sessionExpiry);
 			}
 			res.json(jsonResponse);
 		});
