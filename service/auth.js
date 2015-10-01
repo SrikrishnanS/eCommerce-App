@@ -10,8 +10,25 @@ var connection = mysql.createConnection({
 
 module.exports = {
 	//Test if the request's user is authenticated
-	isAuthenticated : function(req) {
-		return (req.session && req.session.user);
+	isAuthenticated : function(req, callback) {
+		var isAuthenticated = req.session && req.session.user;
+		if(isAuthenticated) {
+			var sessionID = req.sessionID;
+			var statement = 'SELECT U.*, R.DESCRIPTION FROM COMM_USERS U, COMM_ROLES R, COMM_USER_ROLES UR WHERE U.ID = UR.USER_ID AND R.ID=UR.ROLE_ID  AND U.SESSION_ID=?;';
+
+			connection.query(statement, [sessionID], function(err, rows, fields) {
+				if (err) throw err;
+				if(rows.length != 1) 
+					return callback(false);
+				else {
+					user =	rows[0];
+					req.session.user = user;
+					return callback(true);
+				}
+			});
+		}
+		else
+			return callback(false);
 	},
 	//Logout the user by destroying the session
 	logout : function(req) {
@@ -30,9 +47,7 @@ module.exports = {
 			}
 			else if (rows.length == 1) {
 				user = rows[0];
-				console.log('The user is already logged in 3');
 				req.session.user = user;
-				console.log('The user is already logged in 4');
 				if(user.DESCRIPTION==='Administrator'){
 					jsonResponse = {
 						"err_message" : "",
@@ -48,6 +63,9 @@ module.exports = {
 					};	
 				}
 				req.session.cookie.maxAge = new Date(Date.now() + serverConfig.sessionExpiry);
+
+				var sessionUpdate = 'UPDATE COMM_USERS SET SESSION_ID = ? WHERE ID= ?';
+				connection.query(sessionUpdate,[req.sessionID,req.session.user.ID], function(err, rows, fields) {if (err) throw err;});
 			}
 			res.json(jsonResponse);
 		});

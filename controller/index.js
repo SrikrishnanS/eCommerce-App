@@ -19,7 +19,6 @@ router.post('/logout', function(req, res, next) {
 		jsonResponse = {
 			"message" : "You have been logged out"
 		};
-		
 	}
 	else {
 		jsonResponse = {

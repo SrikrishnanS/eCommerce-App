@@ -17,24 +17,26 @@ router.get('/getProducts', function(req, res, next) {
 
 /* REST-JSON-POST update product information. */
 router.post('/modifyProduct', function(req, res, next) {
-	if(!authService.isAuthenticated(req)){
-		res.json({
-			"err_message" : "You are not logged in"
-		});
-		return;
-	}
+	authService.isAuthenticated(req, function(isAuthenticated){
+		if(!isAuthenticated){
+			res.json({
+				"err_message" : "You are not logged in"
+			});
+			return;
+		}
 
-	if(req.session.user.DESCRIPTION != 'Administrator') {
-		res.json({
-			"err_message" : "Access Forbidden"
-		});
-		return;
-	}
-	var product = {};
-	if (typeof req.body.productDescription != 'undefined') product["DESCRIPTION"] = req.body.productDescription;
-	if (typeof req.body.productTitle != 'undefined') product["TITLE"] = req.body.productTitle;
+		if(req.session.user.DESCRIPTION != 'Administrator') {
+			res.json({
+				"err_message" : "Access Forbidden"
+			});
+			return;
+		}
+		var product = {};
+		if (typeof req.body.productDescription != 'undefined') product["DESCRIPTION"] = req.body.productDescription;
+		if (typeof req.body.productTitle != 'undefined') product["TITLE"] = req.body.productTitle;
 
-	productService.updateProductAndRespond(product, req.body.productId, res);
+		productService.updateProductAndRespond(product, req.body.productId, res);
+	});
 });
 
 module.exports = router;
