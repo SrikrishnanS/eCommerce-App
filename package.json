@@ -16,9 +16,7 @@
     "mysql": "~2.9.0",
     "express-session": "~1.11.3",
     "lazy":"~1.0.11",
-    "connect": "1.8.5",
-    "redis":"2.0.1",
-    "connect-redis":"2.5.1"
+    "express-mysql-session":"~0.4.1"
   }
 }
 

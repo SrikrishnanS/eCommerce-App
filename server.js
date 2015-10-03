@@ -5,9 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var connect = require('connect');
-var redis   = require("redis");
-var RedisStore = require('connect-redis')(session);
+
 
 var routes = require('./controller/index');
 var health = require('./controller/health');
@@ -17,8 +15,17 @@ var user = require('./controller/user');
 var product = require('./controller/product');
 
 var serverConfig = require('./config/server');
-var client  = redis.createClient();
+var dbConfig = require('./config/db');
+
 var app = express();
+
+var MySQLSession = require('express-mysql-session');
+var sessionStore = new MySQLSession({
+  host     : dbConfig.host,
+  database : dbConfig.database,
+  user     : dbConfig.username,
+  password : dbConfig.password
+});
 var port = serverConfig.port;
 
 // view engine setup
@@ -30,7 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
-app.use(session({secret: 'secret',resave: false,saveUninitialized: true,rolling:true, store: new RedisStore({ host: 'localhost', port: 8000, client: client,ttl :  260}) }));
+app.use(session({secret: 'secret',name:'sessionID',resave: false,saveUninitialized: true,rolling:true, store: sessionStore }));
 
 app.use('/', routes);
 app.use('/health', health);
