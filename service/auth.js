@@ -33,7 +33,7 @@ module.exports = {
 	//Logout the user by destroying the session
 	logout : function(req) {
 		req.session.destroy()
-		req.session.regenerate(function(err) {});
+		//req.session.regenerate(function(err) {});
 	},
 	//Authenticate the given request using the username and password and redirect to home page
 	authenticateAndRespond : function(username, password, req, res) {
