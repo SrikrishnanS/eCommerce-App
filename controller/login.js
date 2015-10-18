@@ -17,9 +17,6 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
 	authService.isAuthenticated(req, function(isAuthenticated){
-		if(isAuthenticated) {
-			authService.logout(req);
-		}		
 		var username = req.body.username;
 		var password = req.body.password;
 		authService.authenticateAndRespond(username, password, req, res);
