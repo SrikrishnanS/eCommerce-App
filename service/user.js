@@ -68,9 +68,9 @@ module.exports = {
 
 	//Register a user as customer with his details and also register the role
 	registerUserAndRespond : function(user, res) {
-		var statement = 'INSERT INTO COMM_USERS (FIRST_NAME,LAST_NAME,ADDRESS, CITY, STATE, ZIP, EMAIL, USERNAME, PASSWORD) VALUES(?,?,?,?,?,?,?,?,?);';
+		var statement = 'INSERT INTO COMM_USERS (FULL_NAME, FIRST_NAME,LAST_NAME,ADDRESS, CITY, STATE, ZIP, EMAIL, USERNAME, PASSWORD) VALUES(?,?,?,?,?,?,?,?,?,?);';
 		var userId;
-		connection.query(statement,[user.firstName,user.lastName, user.address, user.city, user.state, user.zip, user.email, user.username, user.password], function(err, rows, fields) {
+		connection.query(statement,[user.firstName+' '+user.lastName,user.firstName,user.lastName, user.address, user.city, user.state, user.zip, user.email, user.username, user.password], function(err, rows, fields) {
 			var jsonResponse;
 			if (err) {
 				jsonResponse = {
