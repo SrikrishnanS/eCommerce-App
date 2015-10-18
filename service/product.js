@@ -44,9 +44,9 @@ module.exports = {
 	getProductsAndRespond : function(product, res) {
 		var statement;
 		if(product.productId=='')
-			statement = 'SELECT P.ID, P.ASIN, P.TITLE, P.CLASS, P.DESCRIPTION FROM COMM_PRODUCTS P, COMM_PRODUCT_CATEGORY C WHERE P.ID = C.PRODUCT_ID AND (TITLE LIKE "%'+product.keyword+'%" OR DESCRIPTION LIKE "%'+product.keyword+'%") AND C.CHAIN LIKE "%'+product.category+'%" GROUP BY P.ID;';
+			statement = 'SELECT P.TITLE FROM COMM_PRODUCTS P, COMM_PRODUCT_CATEGORY C WHERE P.ID = C.PRODUCT_ID AND (TITLE LIKE "%'+product.keyword+'%" OR DESCRIPTION LIKE "%'+product.keyword+'%") AND C.CHAIN LIKE "%'+product.category+'%" GROUP BY P.ID;';
 		else
-			statement = 'SELECT P.ID, P.ASIN, P.TITLE, P.CLASS, P.DESCRIPTION FROM COMM_PRODUCTS P, COMM_PRODUCT_CATEGORY C WHERE P.ID = C.PRODUCT_ID AND (TITLE LIKE "%'+product.keyword+'%" OR DESCRIPTION LIKE "%'+product.keyword+'%") AND C.CHAIN LIKE "%'+product.category+'%" AND P.ID = '+ product.productId +' GROUP BY P.ID;';
+			statement = 'SELECT P.TITLE FROM COMM_PRODUCTS P, COMM_PRODUCT_CATEGORY C WHERE P.ID = C.PRODUCT_ID AND (TITLE LIKE "%'+product.keyword+'%" OR DESCRIPTION LIKE "%'+product.keyword+'%") AND C.CHAIN LIKE "%'+product.category+'%" AND P.ID = '+ product.productId +' GROUP BY P.ID;';
 		
 		console.log(statement);
 		connection.query(statement, function(err, rows, fields) {
