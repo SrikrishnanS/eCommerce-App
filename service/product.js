@@ -48,7 +48,6 @@ module.exports = {
 		else
 			statement = 'SELECT DISTINCT P.TITLE FROM COMM_PRODUCTS P, COMM_PRODUCT_CATEGORY C WHERE P.ID = C.PRODUCT_ID AND (TITLE LIKE "%'+product.keyword+'%" OR DESCRIPTION LIKE "%'+product.keyword+'%") AND C.CHAIN LIKE "%'+product.category+'%" AND P.ID = '+ product.productId +';';
 		
-		console.log(statement);
 		connection.query(statement, function(err, rows, fields) {
 			var jsonResponse;
 			if (err) {

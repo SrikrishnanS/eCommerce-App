@@ -30,7 +30,6 @@ router.get('/viewUsers', function(req, res, next) {
 			});
 			return;
 		}
-		console.log(req.session.user);
 		if(req.session.user.DESCRIPTION != 'Administrator') {
 			res.json({
 				"err_message" : "Access Forbidden"

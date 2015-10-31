@@ -13,6 +13,7 @@ var login = require('./controller/login');
 var home = require('./controller/home');
 var user = require('./controller/user');
 var product = require('./controller/product');
+var order = require('./controller/order');
 
 var serverConfig = require('./config/server');
 var dbConfig = require('./config/db');
@@ -45,7 +46,7 @@ app.use('/login', login);
 app.use('/home', home);
 app.use('/', user);
 app.use('/', product);
-
+app.use('/', order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
