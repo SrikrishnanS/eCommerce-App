@@ -25,7 +25,7 @@ module.exports = {
 				jsonResponse = {
 					"order_list" : rows
 				};
-				callback(rows);
+				callback(jsonResponse);
 			}			
 		});		
 	}
