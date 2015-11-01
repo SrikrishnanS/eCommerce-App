@@ -28,5 +28,8 @@ module.exports = {
 				callback(jsonResponse);
 			}			
 		});		
+	},
+	placeOrder : function(productId, callback){
+		
 	}
 };
