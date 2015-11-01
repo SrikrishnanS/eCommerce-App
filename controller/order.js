@@ -10,15 +10,15 @@ router.post('/buyProduct', function(req, res, next) {
 	authService.isAuthenticated(req, function(isAuthenticated){
 		if(!isAuthenticated){
 			res.json({
-				"err_message" : "You are not logged in"
+				"err_message" : "You need to log in prior to buying a product"
 			});
 			return;
 		}
-		var productId = !(typeof req.query.productId == 'undefined') ? req.query.productId : '';
+		var productId = !(typeof req.body.productId == 'undefined') ? req.body.productId : '';
 		if(productId === '') {
 			res.json({
 				"err_message" : "Product Id cannot be blank"
-			}});
+			});
 			return;
 		}
 		orderService.placeOrder(productId, function(response){
