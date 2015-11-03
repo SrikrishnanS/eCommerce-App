@@ -1110,4 +1110,125 @@
   </assertionResult>
 </httpSample>
 
+<httpSample t="564" lt="476" ts="1446523906992" s="false" lb="Register User" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="386" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>Test failed: text expected to contain /Your account has been registered/</failureMessage>
+  </assertionResult>
+</httpSample>
+<httpSample t="276" lt="41" ts="1446523907643" s="true" lb="Customer Login" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="460" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="12" lt="12" ts="1446523907949" s="true" lb="Customer Logout" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="406" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="215" lt="194" ts="1446523907991" s="true" lb="Admin Login" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="493" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="7" lt="7" ts="1446523908226" s="true" lb="Admin Logout" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="408" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="73" lt="58" ts="1446523908255" s="true" lb="Customer Login" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="462" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="7" lt="7" ts="1446523908340" s="true" lb="Forbidden Modify Product" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="404" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="10" lt="10" ts="1446523908362" s="true" lb="Forbidden View Users" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="404" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="39" lt="39" ts="1446523908390" s="true" lb="Update Contact Info" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="418" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="10" lt="10" ts="1446523908440" s="true" lb="Customer Logout" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="408" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="109" lt="70" ts="1446523908475" s="true" lb="Admin Login" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="495" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="81" lt="81" ts="1446523908593" s="true" lb="Modify Product" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="427" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="13" lt="13" ts="1446523908680" s="true" lb="View Users" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="644" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="6" lt="6" ts="1446523908700" s="true" lb="Admin Logout" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="410" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="128" lt="90" ts="1446523908712" s="true" lb="Get Products" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="373" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="3" lt="3" ts="1446523908843" s="true" lb="Already Logged out" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="378" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+<httpSample t="6" lt="6" ts="1446523908855" s="true" lb="Invalid Login" rc="200" rm="OK" tn="API Group 1-1" dt="text" by="405" ng="1" na="1">
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+</httpSample>
+
 </testResults>

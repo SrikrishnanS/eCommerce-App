@@ -1,4 +1,4 @@
-var connection = require("./../db/conn/conn.js")
+var pool = require("./../db/conn/conn.js")
 
 module.exports = {
 
@@ -12,50 +12,56 @@ module.exports = {
 
 		var pos = statement.lastIndexOf(',');
 		statement = statement.substr(0,pos) + statement.substr(pos+1);
-		connection.query(statement, function(err, rows, fields) {
-			var jsonResponse;
-			if (err) {
-				jsonResponse = {
-					"message" : "There was a problem with this action."
-				};
-				console.log(err);
-				res.json(jsonResponse);
-				return;
-			}
-			else {
-				for(field in user) {
-					session.user[field] = user[field];
+		pool.getConnection(function(err, connection) {
+			connection.query(statement, function(err, rows, fields) {
+				var jsonResponse;
+				if (err) {
+					jsonResponse = {
+						"message" : "There was a problem with this action."
+					};
+					console.log(err);
+					connection.release();
+					res.json(jsonResponse);
+					return;
 				}
+				else {
+					for(field in user) {
+						session.user[field] = user[field];
+					}
 
-				jsonResponse = {
-					"message" : "Your information has been updated."
-				};
-				res.json(jsonResponse);
-			}
-			
+					jsonResponse = {
+						"message" : "Your information has been updated."
+					};
+					connection.release();
+					res.json(jsonResponse);
+				}				
+			});
 		});
 	},
 
 	// Fetch a list of users using partial first name and last name
 	viewUsersAndRespond : function(user, res) {
 		var statement = 'SELECT U.USERNAME, U.FIRST_NAME, U.LAST_NAME FROM COMM_USERS U, COMM_ROLES R, COMM_USER_ROLES UR WHERE U.ID = UR.USER_ID AND R.ID=UR.ROLE_ID  AND (U.FIRST_NAME LIKE "%'+user.firstName+'%" OR U.LAST_NAME LIKE "%'+user.lastName+'%")';
+		pool.getConnection(function(err, connection) {	
 			connection.query(statement, function(err, rows, fields) {
-			var jsonResponse;
-			if (err) {
-				jsonResponse = {
-					"message" : "There was a problem fetching the users."
-				};
-				console.log(err);
-				res.json(jsonResponse);
-				return;
-			}
-			else {
-				jsonResponse = {
-					"user_list" : rows
-				};
-				res.json(jsonResponse);
-			}
-			
+				var jsonResponse;
+				if (err) {
+					jsonResponse = {
+						"message" : "There was a problem fetching the users."
+					};
+					console.log(err);
+					connection.release();
+					res.json(jsonResponse);
+					return;
+				}
+				else {
+					jsonResponse = {
+						"user_list" : rows
+					};
+					connection.release();
+					res.json(jsonResponse);
+				}			
+			});
 		});
 	},
 
@@ -63,41 +69,43 @@ module.exports = {
 	registerUserAndRespond : function(user, res) {
 		var statement = 'INSERT INTO COMM_USERS (FULL_NAME, FIRST_NAME,LAST_NAME,ADDRESS, CITY, STATE, ZIP, EMAIL, USERNAME, PASSWORD) VALUES(?,?,?,?,?,?,?,?,?,?);';
 		var userId;
-		connection.query(statement,[user.firstName+' '+user.lastName,user.firstName,user.lastName, user.address, user.city, user.state, user.zip, user.email, user.username, user.password], function(err, rows, fields) {
-			var jsonResponse;
-			if (err) {
-				jsonResponse = {
-					"message" : "There was a problem with your registration."
-				};
-				console.log(err);
-				res.json(jsonResponse);
-				return;
-			}
-			else {
-				userId = rows.insertId;		
-				console.log(userId);
-				var customerRoleId = 2;
-				console.log(rows);
-				var secondStatement = 'INSERT INTO COMM_USER_ROLES (USER_ID, ROLE_ID) VALUES (?,?);';
-				connection.query(secondStatement,[userId,customerRoleId], function(err, rows, fields) {				
-					if (err) {
-						jsonResponse = {
-							"message" : "There was a problem with your registration."
-						};
-						console.log(err);
-						res.json(jsonResponse);
-					}
-					else{
-						jsonResponse = {
-							"message" : "Your account has been registered."
-						};
-						
-						res.json(jsonResponse);
-					}
-				});
-			}
+		pool.getConnection(function(err, connection) {	
+			connection.query(statement,[user.firstName+' '+user.lastName,user.firstName,user.lastName, user.address, user.city, user.state, user.zip, user.email, user.username, user.password], function(err, rows, fields) {
+				var jsonResponse;
+				if (err) {
+					jsonResponse = {
+						"message" : "There was a problem with your registration."
+					};
+					console.log(err);
+					connection.release();
+					res.json(jsonResponse);
+					return;
+				}
+				else {
+					userId = rows.insertId;		
+					console.log(userId);
+					var customerRoleId = 2;
+					console.log(rows);
+					var secondStatement = 'INSERT INTO COMM_USER_ROLES (USER_ID, ROLE_ID) VALUES (?,?);';
+					connection.query(secondStatement,[userId,customerRoleId], function(err, rows, fields) {				
+						if (err) {
+							jsonResponse = {
+								"message" : "There was a problem with your registration."
+							};
+							console.log(err);
+							connection.release();
+							res.json(jsonResponse);
+						}
+						else{
+							jsonResponse = {
+								"message" : "Your account has been registered."
+							};
+							connection.release();
+							res.json(jsonResponse);
+						}
+					});
+				}
+			});
 		});
-
-		
 	}
 };
