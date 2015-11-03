@@ -1,4 +1,4 @@
-var connection = require("./../db/conn/conn.js")
+var pool = require("./../db/conn/conn.js")
 
 module.exports = {
 	getOrders : function(callback) {
@@ -17,6 +17,7 @@ module.exports = {
 				}
 				else {
 					jsonResponse = {
+						"message" : "The request was successful",
 						"order_list" : rows
 					};
 					connection.release();
