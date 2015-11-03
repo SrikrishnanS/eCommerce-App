@@ -1,12 +1,5 @@
-var mysql      = require('mysql');
-var dbConfig = require('./../config/db');
 var serverConfig = require('./../config/server');
-var connection = mysql.createConnection({
-  host     : dbConfig.host,
-  database : dbConfig.database,
-  user     : dbConfig.username,
-  password : dbConfig.password
-});
+var connection = require("./../db/conn/conn.js")
 
 module.exports = {
 	//Test if the request's user is authenticated
