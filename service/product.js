@@ -12,7 +12,6 @@ module.exports = {
 
 		var pos = statement.lastIndexOf(',');
 		statement = statement.substr(0,pos) + statement.substr(pos+1);
-		console.log(statement);
 		pool.getConnection(function(err, connection) {	
 			connection.query(statement, function(err, rows, fields) {
 				var jsonResponse;
