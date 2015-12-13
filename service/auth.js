@@ -36,7 +36,7 @@ module.exports = {
 					if(user.DESCRIPTION==='Administrator'){
 						jsonResponse = {
 							"message" : "You are now logged in",
-							"menu":['/login','/logout','/updateInfo','/modifyProduct','/viewUsers','/getProducts']
+							"menu":['/login','/logout','/updateInfo','/modifyProduct','/viewUsers','/getProducts','/alsoBought']
 						};
 					}
 					else {

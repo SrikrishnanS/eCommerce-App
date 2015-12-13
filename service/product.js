@@ -64,5 +64,30 @@ module.exports = {
 				}			
 			});
 		});
+	},
+	addAlsoBought : function(product, callback) {
+		var statement = 'INSERT INTO COMM_PRODUCT_BOUGHT (PRODUCT_1_ID,PRODUCT_2_ID) VALUES(?,?)';
+		pool.getConnection(function(err, connection) {	
+			connection.query(statement,[product.productId1,product.productId2], function(err, rows, fields) {
+				var jsonResponse;
+				if (err) {
+					jsonResponse = {
+						"message" : "there was a problem processing the request"
+					};
+					console.log(err);
+					connection.release();
+					callback(jsonResponse);
+					return;
+				}
+				else {
+					jsonResponse = {
+						"message" : "the request was successful"
+					};
+					connection.release();
+					callback(jsonResponse);
+					return;
+				}				
+			});
+		});
 	}
 };
