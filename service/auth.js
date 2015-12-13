@@ -36,13 +36,13 @@ module.exports = {
 					if(user.DESCRIPTION==='Administrator'){
 						jsonResponse = {
 							"message" : "You are now logged in",
-							"menu":['/login','/logout','/updateInfo','/modifyProduct','/viewUsers','/getProducts','/alsoBought']
+							"menu":['/login','/logout','/updateInfo','/modifyProduct','/viewUsers','/getProducts','/alsoBought','/getRecommendations']
 						};
 					}
 					else {
 						jsonResponse = {
 							"message" : "You are now logged in",
-							"menu":['/login','/logout','/updateInfo','/getProducts']
+							"menu":['/login','/logout','/updateInfo','/getProducts','/getRecommendations']
 						};	
 					}
 					req.session.cookie.maxAge = new Date(Date.now() + serverConfig.sessionExpiry);

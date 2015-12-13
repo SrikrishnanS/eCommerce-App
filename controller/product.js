@@ -39,4 +39,48 @@ router.post('/modifyProduct', function(req, res, next) {
 	});
 });
 
+/* REST-JSON-POST add also bought information. */
+router.post('/alsoBought',function(req, res, next){
+	authService.isAuthenticated(req, function(isAuthenticated){
+		if(!isAuthenticated){
+			res.json({
+				"err_message" : "You are not logged in"
+			});
+			return;
+		}
+
+		if(req.session.user.DESCRIPTION != 'Administrator') {
+			res.json({
+				"err_message" : "Access Forbidden"
+			});
+			return;
+		}
+		var product = {};
+		if (typeof req.body.productId1 != 'undefined') product["productId1"] = req.body.productId1;
+		if (typeof req.body.productId2 != 'undefined') product["productId2"] = req.body.productId2;
+
+		productService.addAlsoBought(product, function(response){
+			res.json(response);
+		});
+	});
+});
+
+/* REST-JSON-GET get recommendations. */
+router.get('/getRecommendations',function(req, res, next){
+	authService.isAuthenticated(req, function(isAuthenticated){
+		if(!isAuthenticated){
+			res.json({
+				"err_message" : "You are not logged in"
+			});
+			return;
+		}
+
+		var productId = !(typeof req.query.productId == 'undefined') ? req.query.productId : '';
+
+		productService.geRecommendations(productId, function(response){
+			res.json(response);
+		});
+	});
+});
+
 module.exports = router;
